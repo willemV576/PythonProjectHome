@@ -54,7 +54,7 @@ class LinkedList:
         self.head = prev_node # the last remaining loop value of prev_node is the new head
         print(f"find_node val {find_node}")
 
-    def insert_in_location(self, data):
+    def insert_at_location(self, data):
         ...
 
     def remove(self, data):
