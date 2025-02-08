@@ -21,17 +21,29 @@ class LinkedList:
             print("self.head set to new_node")
             return
         find_last_node = self.head  # Start from the head of the list
-        while find_last_node.pointer_next:  # Traverse to the end of the list
+        while find_last_node.pointer_next:  # Loop to the end of the list
             find_last_node = find_last_node.pointer_next
         find_last_node.pointer_next = new_node
         new_node.pointer_prev = find_last_node
         new_node.pointer_next = None
 
     def remove(self, data):
-        print("Remove method was called with data:", data)
-        find_node_s = self.head
-        while find_node_s.data == data:
-            ...
+        #print("Remove method was called with data:", data)
+        find_node = self.head
+        while find_node:  # Loop to end of the list
+            if find_node.data == data:
+                print(f"Node to be removed {find_node}")  # This will print found the node
+                next_data = find_node.pointer_next
+                prev_data = find_node.pointer_prev
+                print(f"next_data {next_data}")
+                print(f"prev_data {prev_data}")
+
+                prev_node =  self.head
+                while prev_node:
+                    ...
+
+
+            find_node = find_node.pointer_next  # Move to next node
 
     def print_list(self): # Print list of all nodes
         current_node = self.head
@@ -47,4 +59,4 @@ llist.append(3)  # Append 3 to the list
 llist.append(4)  # Append 3 to the list
 llist.append(5)  # Append 3 to the list
 llist.remove(4)  # Append 3 to the list
-llist.print_list()  # Print the list
+#llist.print_list()  # Print the list
