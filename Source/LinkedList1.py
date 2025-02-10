@@ -3,6 +3,12 @@ class Node:
         self.data = data  # Initialise the node with data
         self.pointer_next = None  # Initialise the next pointer to None
         self.pointer_prev = None  # Initialise the previous pointer to None
+        self._tail = None  # Initialise the tail of the list to None
+
+
+    @property
+    def tail(self):
+        return self._tail
 
     def __str__(self):
         # Printing attributes of the Node get the data of the next and previous nodes, or None if they don't exist
@@ -14,18 +20,30 @@ class LinkedList:
     def __init__(self):
         self.head = None  # Initialise the head of the list to None
 
+
+    @property
+    def tail(self):
+        return self._tail
+
+
     def append(self, data):
         new_node = Node(data)  # Create a new node with the given data
         if not self.head:  # If the list is empty
             self.head = new_node  # Set the new node as the head
             print("self.head set to new_node")
-            return
+            self._tail = new_node  # Also set the new node as the tail
+            return True
         find_last_node = self.head  # Start from the head of the list
         while find_last_node.pointer_next:  # Loop to the end of the list
             find_last_node = find_last_node.pointer_next
         find_last_node.pointer_next = new_node #set the new node as the pointer_next of the last_node
         new_node.pointer_prev = find_last_node #set the last node as the pointer_prev of new node
         new_node.pointer_next = None #set pointer_prev of new node to None, because it is the tail
+
+        #find_last_node = self._tail  # Start from the tail of the list
+        #find_last_node.pointer_next = new_node  # Set the new node as the pointer_next of the last_node
+        #new_node.pointer_prev = find_last_node  # Set the last node as the pointer_prev of new node
+        #self._tail = new_node  # Update the tail to the new node
 
     def insert_at_start(self, data):
         if self.head is None:
@@ -35,6 +53,18 @@ class LinkedList:
         new_node.pointer_next = self.head # Set the object of pointer_next of the new node to the head, the head comes now after the new node
         self.head.pointer_prev = new_node # set the pointer_prev object of the head to the new node, the head points now back to the new node
         self.head = new_node # make the new node the head
+
+    #def insert_at_start(self, data):
+    #new_node = Node(data)  # Create a new Node
+    #new_node.pointer_next = self.head  # Set the object of pointer_next of the new node to the head, the head comes now after the new node
+    #if self.head:
+    #    self.head.pointer_prev = new_node  # Set the pointer_prev object of the head to the new node, the head points now back to the new node
+    #else:
+    #    self._tail = new_node  # If the list was empty, set the tail to the new node
+    #self.head = new_node  # Make the new node the head
+
+
+
 
     def reverse(self):
         if self.head is None: # you can't reverse nothing
@@ -57,10 +87,11 @@ class LinkedList:
     def insert_at_location(self, data):
         ...
 
-    def remove(self, data):
+    def delete_data(self, data):
         find_node = self.head # Start from the head of the list
+
         while find_node:  # Loop to end of the list
-            if find_node.data == data:
+            if find_node:
                 print(f"Node to be removed {find_node}")  # This will print found the node
                 next_data = find_node.pointer_next
                 prev_data = find_node.pointer_prev
